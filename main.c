@@ -7,7 +7,7 @@
 
 struct Poltrona {
     char nome[50] ;
-    int cpf;
+    unsigned int cpf;
     int ocupado;
     int pago;
 
