@@ -15,8 +15,9 @@ struct Poltrona {
 
 void clear (struct Poltrona poltrona[][5], int tam);
 void lePoltrona (struct Poltrona poltrona [][5], int tam);
-int  Opcaomenu ();
-void menu ();
+void  Opcaomenu ();
+int menu ();
+void comprarPoltrona (struct Poltrona poltrona [][5], int tam, int i, int j);
 
 int main()
 {
@@ -34,7 +35,9 @@ int main()
 
 }
 
-void menu (){
+int menu (){
+    int numMenu = 0;
+
     printf ("-------- Cinemux  ------\n");
     printf ("------------------------\n");
     printf ("1------- Poltronas------\n");
@@ -44,29 +47,43 @@ void menu (){
     printf ("5-------  Sair    ------\n");
     printf ("------------------------\n");
 
+    printf ("Digite o opcao desejada: \n");
+    scanf ("%d", &numMenu);
+
+    return numMenu;
+
 }
 
-int Opcaomenu (struct Poltrona poltrona[][5]){
-    int numMenu = 0;
-    menu ();
+void Opcaomenu (struct Poltrona poltrona[][5]){
+    int aux = 0;
+    aux = menu ();
 
-    while (numMenu !=4) {
+    while (aux !=4) {
 
-        printf ("Digite o opcao desejada: \n");
-        scanf ("%d", &numMenu);
+        menu ();
 
-        switch (numMenu){
+        switch (aux){
 
         case 1:
-            printf ("Qual poltrona voce deseja reservar:\n");
+            lePoltrona (poltrona, TAM);
+            break;
+
+        case 2:
             lePoltrona (poltrona, TAM);
 
-            break;
-        case 2:
-            printf ("Qual poltrona voce deseja comprar:\n");
-            lePoltrona (poltrona, TAM);
+
             break;
         case 3:
+
+
+            printf ("Qual poltrona voce deseja Comprar:\n");
+            break;
+
+         case 4:
+            printf ("Qual poltrona voce deseja cancelar:\n");
+            break;
+
+         case 5:
             printf ("Qual poltrona voce deseja cancelar:\n");
             break;
 
@@ -74,7 +91,6 @@ int Opcaomenu (struct Poltrona poltrona[][5]){
 
     }
 
-    return numMenu;
 
 
 
@@ -105,3 +121,19 @@ void lePoltrona (struct Poltrona poltrona [][5], int tam){
     }
     SetConsoleTextAttribute(hConsole, saved_attributes);
 }
+
+void comprarPoltrona (struct Poltrona poltrona [][5], int tam, int i, int j ){
+     if(poltrona[i][j].ocupado==0){
+        fflush(stdin);
+
+        printf("Digite seu nome: ");
+        gets(poltrona[i][j].nome);
+
+       if (poltrona[i][j].ocupado=2 )
+
+        printf("Poltrona %c%d comprada com sucesso!",i+'A', j+1);
+
+
+
+
+}}
