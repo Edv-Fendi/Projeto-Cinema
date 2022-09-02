@@ -17,7 +17,9 @@ void clear (struct Poltrona poltrona[][5], int tam);
 void lePoltrona (struct Poltrona poltrona [][5], int tam);
 void Opcaomenu (struct Poltrona poltrona[][5]);
 int menu ();
+void reservarPoltrona (struct Poltrona poltrona [][5], int i, int j );
 void comprarPoltrona (struct Poltrona poltrona [][5], int i, int j);
+void cancelarPoltrona (struct Poltrona poltrona [][5], int i, int j );
 
 int main()
 {
@@ -30,6 +32,9 @@ int main()
 
 
     Opcaomenu (poltrona);
+
+
+    return 0;
 
 }
 
@@ -52,15 +57,27 @@ int menu (){
 }
 
 void Opcaomenu (struct Poltrona poltrona[][5]){
-    int numMenu = menu();
     int i, j;
 
-    while (numMenu !=4) {
+    while (1) {
+        int numMenu = menu();
 
         switch (numMenu){
 
         case 1:
             lePoltrona (poltrona, TAM);
+
+            printf ("Qual poltrona voce deseja reservar:\n");
+            fflush(stdin);
+            scanf ("%c%d", &i, &j);
+
+
+            i = toupper(i) - 'A';
+            j = j - 1;
+
+
+            reservarPoltrona(poltrona, i, j);
+            system("cls");
             break;
 
         case 2:
@@ -71,15 +88,24 @@ void Opcaomenu (struct Poltrona poltrona[][5]){
             i = toupper(i) - 'A';
             j = j - 1;
             comprarPoltrona (poltrona, i, j);
+            system("cls");
+
             break;
 
          case 3:
+            lePoltrona (poltrona, TAM);
             printf ("Qual poltrona voce deseja cancelar:\n");
+            fflush(stdin);
+            scanf ("%c%d", &i, &j);
+            i = toupper(i) - 'A';
+            j = j - 1;
+            cancelarPoltrona (poltrona, i, j);
+            system("cls");
             break;
 
          case 4:
-            printf ("Qual poltrona voce deseja cancelar:\n");
-            break;
+            printf ("Obrigado por utilizar nossos servicos:\n");\
+            return;
 
         }
     }
@@ -131,19 +157,83 @@ void comprarPoltrona (struct Poltrona poltrona [][5], int i, int j ){
 
         printf("Digite seu nome: ");
         gets(poltrona[i][j].nome);
+
+        printf("Digite seu cpf: ");
+        scanf("%u", &poltrona[i][j].cpf);
         poltrona[i][j].ocupado = 2;
         printf("Poltrona %c%d comprada com sucesso!!!!! \n",i+'A', j+1);
+        system("pause");
 
 
-     }
-      else if (poltrona[i][j].ocupado==1){
-        printf ("Poltrona ja esta reservada!!");
+        }
+       else if (poltrona[i][j].ocupado==1){
+            unsigned int cpf;
+            printf("Digite seu CPF:");
+            scanf("%u", &cpf);
+          if(poltrona[i][j].cpf == cpf){
+              poltrona[i][j].ocupado = 2;
+
+              printf("Voce comprou sua poltrona reservada!! \n");
+
+
+            }
+            system("pause");
 
       } else if (poltrona[i][j].ocupado==2){
-        printf ("Poltrona ja esta comprada!!!");
+        printf ("Poltrona ja esta comprada!!! \n");
+        system("pause");
       }
 
 
 
 }
+
+void reservarPoltrona (struct Poltrona poltrona [][5], int i, int j ){
+
+     if(poltrona[i][j].ocupado==0){
+        fflush(stdin);
+
+        printf("Digite seu nome: ");
+        gets(poltrona[i][j].nome);
+        fflush(stdin);
+        printf("Digite seu CPF: ");
+        scanf("%u", &poltrona[i][j].cpf);
+        fflush(stdin);
+
+        poltrona[i][j].ocupado = 1;
+
+        printf("Poltrona %c%d reservada com sucesso!!!!! \n",i+'A', j+1);
+
+
+     }
+     else if (poltrona[i][j].ocupado==1){
+
+        printf ("Poltrona ja esta reservada!!\n");
+        system("pause");
+
+      } else if (poltrona[i][j].ocupado==2){
+        printf ("Poltrona ja esta comprada!!!\n");
+        system("pause");
+      }
+
+
+
+}
+
+void cancelarPoltrona (struct Poltrona poltrona [][5], int i, int j ){
+
+            unsigned int cpf;
+            printf("Digite seu CPF:");
+            scanf("%u", &cpf);
+            if(poltrona[i][j].cpf == cpf){
+            poltrona[i][j].ocupado = 0;
+            }
+            printf("Voce cancelou sua reserva!! \n");
+
+}
+
+
+
+
+
 
