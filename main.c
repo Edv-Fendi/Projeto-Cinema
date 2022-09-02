@@ -203,6 +203,7 @@ void reservarPoltrona (struct Poltrona poltrona [][5], int i, int j ){
         poltrona[i][j].ocupado = 1;
 
         printf("Poltrona %c%d reservada com sucesso!!!!! \n",i+'A', j+1);
+        system("pause");
 
 
      }
@@ -221,16 +222,36 @@ void reservarPoltrona (struct Poltrona poltrona [][5], int i, int j ){
 }
 
 void cancelarPoltrona (struct Poltrona poltrona [][5], int i, int j ){
-
             unsigned int cpf;
-            printf("Digite seu CPF:");
-            scanf("%u", &cpf);
-            if(poltrona[i][j].cpf == cpf){
-            poltrona[i][j].ocupado = 0;
+            if(poltrona[i][j].ocupado==0){
+            fflush(stdin);
+            printf ("Esta cadeira não esta reservada");
+            system("pause");
             }
-            printf("Voce cancelou sua reserva!! \n");
+
+            else if(poltrona[i][j].ocupado==1){
+
+
+                printf("Digite seu CPF:");
+                scanf("%u", &cpf);
+
+            if(poltrona[i][j].cpf == cpf){
+
+                poltrona[i][j].ocupado = 0;
+                printf("Voce cancelou sua reserva!! \n");
+                system("pause");
+            }
+            }
+
+            else if (poltrona[i][j].ocupado==2){
+                printf ("Essa operacao e invalida! \n");
+                system("pause");
+            }
+
+
 
 }
+
 
 
 
